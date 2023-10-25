@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const db = new Sequelize('crm ztechnology', 'root', '', {
+const db = new Sequelize('ztechnology', 'root', '', {
     host: 'localhost',
     dialect: 'mysql' 
   });

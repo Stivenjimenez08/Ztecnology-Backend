@@ -1,14 +1,16 @@
 import dotenv from 'dotenv';
 import express, {Application} from 'express';
-import db from '../db/connection'
+import db from '../db/connection';
+import userRoutes from '../routes/user';
 dotenv.config();
 
 class Server {
 
     private app: Application;
     private port: string | undefined;
+
     private apiPaths={
-       
+        User: '/api/User' 
     }
 
     constructor() {
@@ -35,7 +37,7 @@ class Server {
     }
 
     routes() {
-
+        this.app.use(this.apiPaths.User, userRoutes)
     }
 
     listen() {
