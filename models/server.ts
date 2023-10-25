@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express, {Application} from 'express';
 import db from '../db/connection';
 import userRoutes from '../routes/user';
+import rolRoutes from '../routes/role';
 dotenv.config();
 
 class Server {
@@ -10,7 +11,8 @@ class Server {
     private port: string | undefined;
 
     private apiPaths={
-        User: '/api/User' 
+        User: '/api/User',
+        Rol: '/api/Rol'
     }
 
     constructor() {
@@ -38,6 +40,7 @@ class Server {
 
     routes() {
         this.app.use(this.apiPaths.User, userRoutes)
+        this.app.use(this.apiPaths.Rol, rolRoutes)
     }
 
     listen() {
