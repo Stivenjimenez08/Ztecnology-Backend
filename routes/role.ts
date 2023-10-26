@@ -1,11 +1,8 @@
 import { Router } from 'express';
-import {createRol, deleteRol, updateRol,consultRol} from '../controllers/role'
+import {consultRol} from '../controllers/role'
 const router= Router()
 
 router.get('/consultRol',consultRol)
-router.post('/createRol', createRol)
-router.put('/updateRol/:id', updateRol)
-router.delete('/deleteRol/:name', deleteRol)
 
 router.get('*', (req, res) => {
     

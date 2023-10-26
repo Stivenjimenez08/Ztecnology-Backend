@@ -3,6 +3,7 @@ import express, {Application} from 'express';
 import db from '../db/connection';
 import userRoutes from '../routes/user';
 import rolRoutes from '../routes/role';
+import customerRoutes from '../routes/customer';
 dotenv.config();
 
 class Server {
@@ -12,7 +13,8 @@ class Server {
 
     private apiPaths={
         User: '/api/User',
-        Rol: '/api/Rol'
+        Rol: '/api/Rol',
+        Customer: '/api/Customer'
     }
 
     constructor() {
@@ -38,12 +40,13 @@ class Server {
         this.app.use(express.json())
     }
 
-    routes() {
+    routes(){
         this.app.use(this.apiPaths.User, userRoutes)
         this.app.use(this.apiPaths.Rol, rolRoutes)
+        this.app.use(this.apiPaths.Customer, customerRoutes)
     }
 
-    listen() {
+    listen(){
         this.app.listen(this.port, () => {
             console.log(`Corriendo en el puerto: ${this.port}`)
         })
