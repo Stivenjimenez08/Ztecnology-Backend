@@ -5,7 +5,7 @@ const router= Router()
 router.get('/consultRol',consultRol)
 router.post('/createRol', createRol)
 router.put('/updateRol/:id', updateRol)
-router.delete('/deleteRol/:nameRol', deleteRol)
+router.delete('/deleteRol/:name', deleteRol)
 
 router.get('*', (req, res) => {
     

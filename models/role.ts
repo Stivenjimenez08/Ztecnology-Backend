@@ -3,13 +3,13 @@ import db from '../db/connection';
 
 const Rol = db.define('role',{
     
-    nameRol: {
+    name: {
         type: DataTypes.STRING
     },
-    rolDescription:{
+    description:{
         type: DataTypes.STRING
     },
-    rolStatus:{
+    state:{
         type: DataTypes.BIGINT
     },
 })

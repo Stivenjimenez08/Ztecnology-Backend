@@ -4,7 +4,7 @@ import Rol from './role'
 
 const user = db.define('user',{
     
-    userName: {
+    names: {
         type: DataTypes.STRING
     },
     lastName:{
@@ -13,7 +13,7 @@ const user = db.define('user',{
     email:{
         type: DataTypes.STRING
     },
-    userPassword:{
+    password:{
         type: DataTypes.STRING
     },
     photo:{
@@ -22,7 +22,7 @@ const user = db.define('user',{
     idRol:{
         type: DataTypes.BIGINT
     },
-    userStatus:{
+    state:{
         type: DataTypes.TINYINT
     }
 })

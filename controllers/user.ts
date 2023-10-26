@@ -6,12 +6,12 @@ import Rol from '../models/role'
 
 export const createUser = async(req: Request, res: Response) =>{
 
-    let { userName, lastName, email, userPassword, photo, idRol, userStatus} = req.body
+    let { names, lastName, email, password, photo, idRol, state} = req.body
 
     const salt = bcrypt.genSaltSync()
-    userPassword = bcrypt.hashSync(userPassword, salt)
+    password = bcrypt.hashSync(password, salt)
 
-    const users = await user.create({userName, lastName, email, userPassword, photo, idRol, userStatus})
+    const users = await user.create({names, lastName, email, password, photo, idRol, state})
 
     res.status(200).json({
         msg: `se ha registrado un usuario con el Id: ${users.dataValues.id}`
@@ -20,12 +20,12 @@ export const createUser = async(req: Request, res: Response) =>{
 
 export const updateUser= async(req: Request, res: Response)=>{
  
-    let {id, userName, lastName, email, userPassword, photo, idRol, userStatus} = req.body;
+    let {id, names, lastName, email, password, photo, idRol, state} = req.body;
 
     const salt = bcrypt.genSaltSync()
-    userPassword = bcrypt.hashSync(userPassword, salt)
+    password = bcrypt.hashSync(password, salt)
 
-    const users= await user.update({ userName, lastName, email, userPassword, photo, idRol, userStatus},{
+    const users= await user.update({ names, lastName, email, password, photo, idRol, state},{
         where:{
             id
         }
@@ -58,13 +58,13 @@ export const deleteUser = async(req: Request, res:Response)=>{
 
 export const cosultUser = async(req: Request, res: Response)=> {
     const users= await user.findAll({
-        attributes:['userName', 'lastName', 'email'],
+        attributes:['names', 'lastName', 'email'],
         include:[{
             model: Rol,
-            attributes: ['nameRol']
+            attributes: ['name']
         }],
         where:{
-            userStatus:1
+            state:1
         }
     })
 
@@ -76,19 +76,20 @@ export const cosultUser = async(req: Request, res: Response)=> {
 
 export const userByName = async(req: Request, res: Response) =>{
 
-    const {userName}=req.body
+    const {names}=req.body
 
     const users = await user.findAll({
         where:{
-            userName
+            names
         }
     })
-    if (users) { // preguntar como hacer para que compare el userName con el users
+
+    if (users) { // preguntar como hacer para que compare el names con el users
         res.status(200).json({
             users
         })
     } else {
-        res.status(200).json({
+        res.status(400).json({
             msg: 'El usuario no existe'
         })
     }
