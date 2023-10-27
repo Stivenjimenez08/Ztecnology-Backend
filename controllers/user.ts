@@ -4,6 +4,45 @@ import user from '../models/user'
 import Rol from '../models/role'
 
 
+export const cosultUser = async(req: Request, res: Response)=> {
+    const users= await user.findAll({
+        attributes:['names', 'lastName', 'email'],
+        include:[{
+            model: Rol,
+            attributes: ['name']
+        }],
+        where:{
+            state:1
+        }
+    })
+
+    res.status(200).json({
+        msg: " user's ",
+        users//: users //si se llaman igual se deja solo 1
+    })
+}
+
+export const userByName = async(req: Request, res: Response) =>{
+
+    const {names}=req.body
+
+    const users = await user.findAll({
+        where:{
+            names
+        }
+    })
+
+    if (users) { // preguntar como hacer para que compare el names con el users
+        res.status(200).json({
+            users
+        })
+    } else {
+        res.status(400).json({
+            msg: 'El usuario no existe'
+        })
+    }
+}
+
 export const createUser = async(req: Request, res: Response) =>{
 
     let { names, lastName, email, password, photo, idRol, state} = req.body
@@ -54,43 +93,4 @@ export const deleteUser = async(req: Request, res:Response)=>{
     res.status(200).json({
         msg: `se elimino el usuario con el Id: ${id}`
     }) 
-}
-
-export const cosultUser = async(req: Request, res: Response)=> {
-    const users= await user.findAll({
-        attributes:['names', 'lastName', 'email'],
-        include:[{
-            model: Rol,
-            attributes: ['name']
-        }],
-        where:{
-            state:1
-        }
-    })
-
-    res.status(200).json({
-        msg: " user's ",
-        users//: users //si se llaman igual se deja solo 1
-    })
-}
-
-export const userByName = async(req: Request, res: Response) =>{
-
-    const {names}=req.body
-
-    const users = await user.findAll({
-        where:{
-            names
-        }
-    })
-
-    if (users) { // preguntar como hacer para que compare el names con el users
-        res.status(200).json({
-            users
-        })
-    } else {
-        res.status(400).json({
-            msg: 'El usuario no existe'
-        })
-    }
 }

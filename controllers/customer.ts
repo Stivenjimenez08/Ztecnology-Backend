@@ -16,7 +16,7 @@ export const cosultCustomer = async(req: Request, res: Response)=> {
     })
 }
 
-export const customerByName = async(req: Request, res: Response) =>{
+export const customerByName = async(req: Request, res: Response)=>{
 
     const {names}=req.body
 
@@ -62,7 +62,8 @@ export const updateCustomer = async(req:Request, res:Response)=>{
     })
     res.status(200).json({
 
-        msg: `Se ha modificado el cliente con Id #${id}`
+        msg: `Se ha modificado el cliente con Id #${id}`,
+        Customers
     }) 
 }
 
@@ -79,4 +80,5 @@ export const deleteCustomer = async(req:Request, res:Response)=>{
         msg: `se elimino el cliente: ${names}`
     }) 
 }
+
 
