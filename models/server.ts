@@ -5,6 +5,7 @@ import userRoutes from '../routes/user';
 import rolRoutes from '../routes/role';
 import customerRoutes from '../routes/customer';
 import productRoutes from '../routes/product';
+import quoteRoutes from '../routes/quote';
 dotenv.config();
 
 class Server {
@@ -16,7 +17,8 @@ class Server {
         User: '/api/User',
         Rol: '/api/Rol',
         Customer: '/api/Customer',
-        Product: '/api/Product'
+        Product: '/api/Product',
+        Quote: '/api/Quote'
     }
 
     constructor() {
@@ -47,6 +49,7 @@ class Server {
         this.app.use(this.apiPaths.Rol, rolRoutes)
         this.app.use(this.apiPaths.Customer, customerRoutes)
         this.app.use(this.apiPaths.Product, productRoutes)
+        this.app.use(this.apiPaths.Quote, quoteRoutes)
     }
 
     listen(){
