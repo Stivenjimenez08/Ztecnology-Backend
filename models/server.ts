@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express, {Application} from 'express';
 import db from '../db/connection';
+import loginRoutes from'../routes/login';
 import userRoutes from '../routes/user';
 import rolRoutes from '../routes/role';
 import customerRoutes from '../routes/customer';
@@ -14,6 +15,7 @@ class Server {
     private port: string | undefined;
 
     private apiPaths={
+        login:'/api/init',
         User: '/api/User',
         Rol: '/api/Rol',
         Customer: '/api/Customer',
@@ -45,6 +47,7 @@ class Server {
     }
 
     routes(){
+        this.app.use(this.apiPaths.login, loginRoutes)
         this.app.use(this.apiPaths.User, userRoutes)
         this.app.use(this.apiPaths.Rol, rolRoutes)
         this.app.use(this.apiPaths.Customer, customerRoutes)

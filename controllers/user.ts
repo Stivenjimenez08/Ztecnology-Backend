@@ -6,7 +6,7 @@ import Rol from '../models/role'
 
 export const cosultUser = async(req: Request, res: Response)=> {
     const users= await user.findAll({
-        attributes:['names', 'lastName', 'email'],
+        attributes:['names', 'lastName', 'email', 'password'],
         include:[{
             model: Rol,
             attributes: ['name']
