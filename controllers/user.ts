@@ -5,6 +5,9 @@ import Rol from '../models/role'
 
 
 export const cosultUser = async(req: Request, res: Response)=> {
+
+    console.log(req.body.id)
+    
     const users= await user.findAll({
         attributes:['names', 'lastName', 'email', 'password'],
         include:[{
@@ -47,6 +50,22 @@ export const createUser = async(req: Request, res: Response) =>{
 
     let { names, lastName, email, password, photo, idRol, state} = req.body
 
+    if(!names || !email || !password || !idRol){
+        return res.status(200).json({
+            msg: `llene todos los espacios necesarios`
+        }) 
+    }
+    const valemail = await user.findOne({
+        where: {
+            email
+        }
+    })
+    if(valemail){
+        return res.status(200).json({
+            msg: `el correo ${email} ya ese encuentra registrado`
+        }) 
+    }
+    
     const salt = bcrypt.genSaltSync()
     password = bcrypt.hashSync(password, salt)
 
@@ -83,14 +102,23 @@ export const deleteUser = async(req: Request, res:Response)=>{
         where: {id}
     })
 
-    // const state= 0 implementar funcion para decidir si desactivar o eliminar directamente 
-    // await Usuario.update({state},{
-    //     where:{
-    //         id
-    //     }
-    // })
-
     res.status(200).json({
         msg: `se elimino el usuario con el Id: ${id}`
     }) 
 }
+
+// export const deleteUser = async(req: Request, res:Response)=>{
+
+//     const {id}= req.params
+
+//     const state= 0 implementar funcion para decidir si desactivar o eliminar directamente 
+//     await Usuario.update({state},{
+//         where:{
+//             id
+//         }
+//     })
+
+//     res.status(200).json({
+//         msg: `se elimino el usuario con el Id: ${id}`
+//     }) 
+// }

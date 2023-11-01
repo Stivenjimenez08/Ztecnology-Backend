@@ -1,8 +1,9 @@
 import{ Router } from 'express';
 import {createUser, updateUser, deleteUser, cosultUser, userByName} from '../controllers/user'
+import validateJWT from '../helpers/validate-jwt';
 const router = Router()
 
-router.get('/consultUser', cosultUser)
+router.get('/consultUser',validateJWT, cosultUser)
 router.get('/UserByName', userByName)
 router.post('/createUser', createUser)
 router.put('/updateUser',updateUser)
