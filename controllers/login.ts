@@ -20,8 +20,11 @@ export const login= async(req: Request, res: Response) =>{
         })
     }
 
-    //validacion de que la contrasena corresponde al usuario
-    const valpassword = bcrypt.compareSync( password ,login.dataValues.password)// me compara la contrasena ligada al email con la contrasena encriptada
+    const valpassword = bcrypt.compareSync( password ,login.dataValues.password)// me compara la contrasena    ligada al email con la contrasena encriptada
+
+    //trae el rol
+    const rol= console.log(login.dataValues.idRol)
+
     
     if (!valpassword){
         return res.status(400).json({

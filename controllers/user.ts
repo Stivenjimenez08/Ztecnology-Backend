@@ -6,7 +6,7 @@ import Rol from '../models/role'
 
 export const cosultUser = async(req: Request, res: Response)=> {
 
-    console.log(req.body.id)
+    console.log(req.body.id )
     
     const users= await user.findAll({
         attributes:['names', 'lastName', 'email', 'password'],
@@ -21,21 +21,19 @@ export const cosultUser = async(req: Request, res: Response)=> {
 
     res.status(200).json({
         msg: " user's ",
-        users//: users //si se llaman igual se deja solo 1
+        users
     })
 }
 
-export const userByName = async(req: Request, res: Response) =>{
+export const userById = async(req: Request, res: Response) =>{
 
-    const {names}=req.body
+    const {id}=req.body
 
     const users = await user.findAll({
-        where:{
-            names
-        }
+        where:{id}
     })
 
-    if (users) { // preguntar como hacer para que compare el names con el users
+    if (users) {
         res.status(200).json({
             users
         })
@@ -50,11 +48,6 @@ export const createUser = async(req: Request, res: Response) =>{
 
     let { names, lastName, email, password, photo, idRol, state} = req.body
 
-    if(!names || !email || !password || !idRol){
-        return res.status(200).json({
-            msg: `llene todos los espacios necesarios`
-        }) 
-    }
     const valemail = await user.findOne({
         where: {
             email
