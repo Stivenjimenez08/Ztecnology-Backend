@@ -9,7 +9,7 @@ export const cosultUser = async(req: Request, res: Response)=> {
     console.log(req.body.id )
     
     const users= await user.findAll({
-        attributes:['names', 'lastName', 'email', 'password'],
+        attributes:['id','names', 'lastName', 'email', 'password'],
         include:[{
             model: Rol,
             attributes: ['name']
@@ -46,7 +46,8 @@ export const userById = async(req: Request, res: Response) =>{
 
 export const createUser = async(req: Request, res: Response) =>{
 
-    let { names, lastName, email, password, photo, idRol, state} = req.body
+    let { names, lastName, email, password} = req.body
+    const idRol=1 // cuando ya este funcionando volver a enviar en el req.body
 
     const valemail = await user.findOne({
         where: {
@@ -62,7 +63,7 @@ export const createUser = async(req: Request, res: Response) =>{
     const salt = bcrypt.genSaltSync()
     password = bcrypt.hashSync(password, salt)
 
-    const users = await user.create({names, lastName, email, password, photo, idRol, state})
+    const users = await user.create({names, lastName, email, password, idRol})
 
     res.status(200).json({
         msg: `se ha registrado un usuario con el Id: ${users.dataValues.id}`

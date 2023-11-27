@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import {cosultCustomer, customerByName, createCustomer, deleteCustomer, updateCustomer} from '../controllers/customer'
+import {cosultCustomer, customerById, createCustomer, deleteCustomer, updateCustomer} from '../controllers/customer'
 const router= Router()
 
 router.get('/consultCustomer', cosultCustomer)
-router.get('/customerByName', customerByName)
+router.get('/customerById', customerById)
 router.post('/createCustomer', createCustomer)
 router.put('/updateCustomer', updateCustomer)
-router.delete('/deleteCustomer', deleteCustomer)
+router.delete('/deleteCustomer/:id', deleteCustomer)
 
 router.get('*', (req, res) => {
     

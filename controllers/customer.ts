@@ -4,7 +4,7 @@ import Customer from '../models/customer'
 export const cosultCustomer = async(req: Request, res: Response)=> {
 
     const customers= await Customer.findAll({
-        attributes:['names', 'nit', 'email','address'],
+        attributes:['id','names', 'nit', 'email','address'],
         where:{
             state:1
         }
@@ -16,19 +16,18 @@ export const cosultCustomer = async(req: Request, res: Response)=> {
     })
 }
 
-export const customerByName = async(req: Request, res: Response)=>{
+export const customerById = async(req: Request, res: Response)=>{
 
-    const {names}=req.body
+    const {id}=req.body
 
     const customers = await Customer.findAll({
         where:{
-            names
+            id
         }
     })
 
-    if (customers) { // preguntar como hacer para que compare el names con el users
+    if (customers) {
         res.status(200).json({
-
             customers
         })
     } else {
@@ -42,12 +41,12 @@ export const createCustomer = async(req:Request, res:Response)=>{
 
     const {names, nit, email, address}= req.body
 
-    const Customers= await Customer.create({names, nit, email, address})
+    const customers= await Customer.create({names, nit, email, address})
 
     res.status(200).json({
 
         msg: 'Se ha creado un nuevo cliente',
-        Customers
+        customers
     }) 
 }
 
@@ -69,15 +68,15 @@ export const updateCustomer = async(req:Request, res:Response)=>{
 
 export const deleteCustomer = async(req:Request, res:Response)=>{
 
-    const {names}= req.body
+    const {id}= req.params
 
     await Customer.destroy({
         where:{
-            names
+            id
         }
     })
     res.status(200).json({
-        msg: `se elimino el cliente: ${names}`
+        msg: `se elimino el cliente con el id: ${id}`
     }) 
 }
 

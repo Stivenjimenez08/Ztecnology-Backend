@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express, {Application} from 'express';
+import cors from 'cors'
 import db from '../db/connection';
 import loginRoutes from'../routes/login';
 import userRoutes from '../routes/user';
@@ -44,6 +45,7 @@ class Server {
     middlewares(){
         //lectura y parseo del body (conversion)
         this.app.use(express.json())
+        this.app.use(cors())
     }
 
     routes(){
