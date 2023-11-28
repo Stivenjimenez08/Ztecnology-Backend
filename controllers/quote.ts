@@ -30,7 +30,7 @@ export const updateQuote = async( req:Request, res:Response)=>{
 export const consultQuote = async( req:Request, res:Response)=>{
 
     const Quotes = await Quote.findAll({
-        attributes:['date','idCustomer', 'serial', 'idProduct', 'quantity', 'discount', 'idUser', 'subTotal','total','state']
+        attributes:['id','date','idCustomer', 'serial', 'idProduct', 'quantity', 'discount', 'idUser', 'subTotal','total','state']
     })
     res.status(200).json({
         msg: " cotizaciones ",
@@ -38,14 +38,14 @@ export const consultQuote = async( req:Request, res:Response)=>{
 })
 }
 
-export const QuoteBySerial = async( req:Request, res:Response)=>{
+export const QuoteById = async( req:Request, res:Response)=>{
 
     
-    const {serial}=req.body
+    const {id}=req.body
 
     const Quotes = await Quote.findAll({
         where:{
-            serial
+            id
         }
     })
 

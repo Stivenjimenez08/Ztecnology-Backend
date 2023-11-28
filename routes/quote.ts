@@ -1,9 +1,9 @@
 import{ Router } from 'express';
-import {createQuote, updateQuote, consultQuote, QuoteBySerial} from '../controllers/quote'
+import {createQuote, updateQuote, consultQuote, QuoteById} from '../controllers/quote'
 const router = Router()
 
 router.get('/consultQuote', consultQuote)
-router.get('/QuoteBySerial', QuoteBySerial)
+router.get('/QuoteById', QuoteById)
 router.post('/createQuote', createQuote)
 router.put('/updateQuote',updateQuote)
 

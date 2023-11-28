@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import {consultProduct, productByName, createProduct, updateProduct} from '../controllers/product'
+import {consultProduct, productById, createProduct, updateProduct} from '../controllers/product'
 const router = Router()
 
 router.get('/consultProduct', consultProduct)
-router.get('/productByName', productByName)
+router.get('/productById', productById)
 router.post('/createProduct', createProduct)
 router.put('/updateProduct', updateProduct)
 

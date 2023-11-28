@@ -5,7 +5,7 @@ export const consultProduct =async (req:Request, res:Response) => {
     
     const products= await Product.findAll({
 
-        attributes:['name', 'detail', 'stock', 'price'], 
+        attributes:['id','name', 'description', 'stock', 'price'], 
         where:{
             state: 1
         }
@@ -17,17 +17,17 @@ export const consultProduct =async (req:Request, res:Response) => {
     }) 
 }
 
-export const productByName = async(req:Request, res: Response) => {
+export const productById = async(req:Request, res: Response) => {
     
-    const {name}=req.body
+    const {id}=req.body
 
     const products = await Product.findAll({
         where:{
-            name
+            id
         }
     })
 
-    if (products) { // preguntar como hacer para que compare el name con el producto
+    if (products) { 
         res.status(200).json({
         products
         })
@@ -40,9 +40,9 @@ export const productByName = async(req:Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) =>{
 
-    const { name, detail, stock, price}= req.body
+    const { name, description, stock, price}= req.body
 
-    const products = await Product.create({name, detail, stock, price})
+    const products = await Product.create({name, description, stock, price})
 
     res.status(200).json({
 
@@ -53,9 +53,9 @@ export const createProduct = async (req: Request, res: Response) =>{
 
 export const updateProduct = async (req: Request, res: Response)=>{
     
-    const {id, name, detail, stock, price}= req.body
+    const {id, name, description, stock, price}= req.body
 
-    const products= await Product.update({name, detail, stock, price}, {
+    const products= await Product.update({name, description, stock, price}, {
         where:{
             id
         }
@@ -66,5 +66,3 @@ export const updateProduct = async (req: Request, res: Response)=>{
         msg: `Se ha modificado el producto ${name}`
     }) 
 }
-
-//para los productos no piden delete, preguntar si se puede hacer

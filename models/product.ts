@@ -6,7 +6,7 @@ const product= db.define ('product', {
     name: {
         type: DataTypes.STRING
     },
-    detail: {
+    description: {
         type: DataTypes.STRING
     },
     stock: {
