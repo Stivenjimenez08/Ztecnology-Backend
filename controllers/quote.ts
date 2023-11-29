@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import Quote from '../models/quote'
+import Customer from '../models/customer'
+import Product from '../models/product'
+import User from '../models/user'
 
 export const createQuote = async( req:Request, res:Response)=>{
 
@@ -30,7 +33,17 @@ export const updateQuote = async( req:Request, res:Response)=>{
 export const consultQuote = async( req:Request, res:Response)=>{
 
     const Quotes = await Quote.findAll({
-        attributes:['id','date','idCustomer', 'serial', 'idProduct', 'quantity', 'discount', 'idUser', 'subTotal','total','state']
+        attributes:['id','date','idCustomer', 'serial', 'idProduct', 'quantity', 'discount', 'idUser', 'subTotal','total'],
+        include:[{
+            model: Customer,
+            attributes: ['names']
+        },{
+            model: Product, 
+            attributes: ['name']
+        },{
+            model: User,
+            attributes:['names']
+        }]
     })
     res.status(200).json({
         msg: " cotizaciones ",
