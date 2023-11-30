@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken'
 
-//funcion que me dice que si el id trae un valor me genera el JWT sino lo deja vacio
 const generateJWT = (id=' ')=>{
 
     return new Promise((resolve, reject)=>{

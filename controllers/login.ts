@@ -1,6 +1,6 @@
 import {Request, Response } from 'express';
 import bcrypt from 'bcryptjs'
-import user from '../models/user'
+import User from '../models/user'
 import generateJWT from '../helpers/generate-jwt';
 
 export const login= async(req: Request, res: Response) =>{
@@ -8,8 +8,7 @@ export const login= async(req: Request, res: Response) =>{
     const {email,password}= req.body
     try {
     
-    //verifica si el email existe
-    const login = await user.findOne({
+    const login = await User.findOne({
         where: {
             email
         }
@@ -20,9 +19,8 @@ export const login= async(req: Request, res: Response) =>{
         })
     }
 
-    const valpassword = bcrypt.compareSync( password ,login.dataValues.password)// me compara la contrasena    ligada al email con la contrasena encriptada
+    const valpassword = bcrypt.compareSync( password ,login.dataValues.password)
 
-    //trae el rol
     const rol= console.log(login.dataValues.idRol)
 
     
@@ -33,7 +31,7 @@ export const login= async(req: Request, res: Response) =>{
     }
     if (!login.dataValues.state){
         return res.status(400).json({
-            msg: 'Usuario inactivo' // y se desea, aqui se pone que si se quiere volver a activar de al boton aceptar 
+            msg: 'Usuario inactivo' 
         })
     }
 
@@ -45,7 +43,32 @@ export const login= async(req: Request, res: Response) =>{
         token
     })
 
-} catch (error) {
-    console.log(error)
+    } catch (error) {
+        console.log(error)
+    }
 }
+
+export const logout = (req: Request, res: Response) => {
+    return res.status(200).json({
+        msg:"El usuario cerro sesion correctamente"
+    })
 }
+
+export const validateToken = async(req: Request, res: Response) => {
+    const {id} = req.body
+    console.log('id', id)
+
+    const user = await User.findByPk(id)
+    if(!user){
+        return res.status(200).json({
+            user,
+            msg: 'El usuario no existe'
+        })
+    }
+
+    return res.status(200).json({
+        user, 
+        msg:'Token validado'
+    })
+}
+

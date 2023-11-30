@@ -13,9 +13,7 @@ const validateJWT = (req:Request, res:Response, next: ()=> void) =>{
 
     try {
         const resToken: any = jwt.verify(token, process.env.PRIVATEKEY || ' ' )
-
-        req.body.idRol = resToken?.idRol;
-
+        req.body.id = resToken?.id;
         next();
 
     } catch (error) {
