@@ -3,7 +3,7 @@ import {createQuote, updateQuote, consultQuote, QuoteById} from '../controllers/
 const router = Router()
 
 router.get('/consultQuote', consultQuote)
-router.get('/QuoteById', QuoteById)
+router.get('/QuoteById/:id', QuoteById)
 router.post('/createQuote', createQuote)
 router.put('/updateQuote',updateQuote)
 

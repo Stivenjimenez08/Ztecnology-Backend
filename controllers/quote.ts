@@ -54,13 +54,9 @@ export const consultQuote = async( req:Request, res:Response)=>{
 export const QuoteById = async( req:Request, res:Response)=>{
 
     
-    const {id}=req.body
+    const {id}=req.params
 
-    const Quotes = await Quote.findAll({
-        where:{
-            id
-        }
-    })
+    const Quotes = await Quote.findByPk(id)
 
     if (Quotes) { // preguntar como hacer para que compare el names con el users
         res.status(200).json({

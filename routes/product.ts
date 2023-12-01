@@ -3,7 +3,7 @@ import {consultProduct, productById, createProduct, updateProduct} from '../cont
 const router = Router()
 
 router.get('/consultProduct', consultProduct)
-router.get('/productById', productById)
+router.get('/productById/:id', productById)
 router.post('/createProduct', createProduct)
 router.put('/updateProduct', updateProduct)
 

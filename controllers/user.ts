@@ -27,11 +27,9 @@ export const cosultUser = async(req: Request, res: Response)=> {
 
 export const userById = async(req: Request, res: Response) =>{
 
-    const {id}=req.body
+    const {id}=req.params
 
-    const users = await user.findAll({
-        where:{id}
-    })
+    const users = await user.findByPk(id)
 
     if (users) {
         res.status(200).json({
@@ -46,8 +44,7 @@ export const userById = async(req: Request, res: Response) =>{
 
 export const createUser = async(req: Request, res: Response) =>{
 
-    let { names, lastName, email, password} = req.body
-    const idRol=1 // cuando ya este funcionando volver a enviar en el req.body
+    let { names, lastName, email, password,idRol} = req.body
 
     const valemail = await user.findOne({
         where: {

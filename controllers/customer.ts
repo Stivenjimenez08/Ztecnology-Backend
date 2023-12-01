@@ -18,13 +18,9 @@ export const cosultCustomer = async(req: Request, res: Response)=> {
 
 export const customerById = async(req: Request, res: Response)=>{
 
-    const {id}=req.body
+    const {id}=req.params
 
-    const customers = await Customer.findAll({
-        where:{
-            id
-        }
-    })
+    const customers = await Customer.findByPk(id)
 
     if (customers) {
         res.status(200).json({

@@ -19,13 +19,9 @@ export const consultProduct =async (req:Request, res:Response) => {
 
 export const productById = async(req:Request, res: Response) => {
     
-    const {id}=req.body
+    const {id}=req.params
 
-    const products = await Product.findAll({
-        where:{
-            id
-        }
-    })
+    const products = await Product.findByPk(id)
 
     if (products) { 
         res.status(200).json({

@@ -3,7 +3,7 @@ import {cosultCustomer, customerById, createCustomer, deleteCustomer, updateCust
 const router= Router()
 
 router.get('/consultCustomer', cosultCustomer)
-router.get('/customerById', customerById)
+router.get('/customerById/:id', customerById)
 router.post('/createCustomer', createCustomer)
 router.put('/updateCustomer', updateCustomer)
 router.delete('/deleteCustomer/:id', deleteCustomer)

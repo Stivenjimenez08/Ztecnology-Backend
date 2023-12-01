@@ -2,9 +2,9 @@ import{ Router } from 'express';
 import {createUser, updateUser, deleteUser, cosultUser, userById} from '../controllers/user'
 // import validateJWT from '../helpers/validate-jwt';
 const router = Router()
-// ,validateJWT     pendiente volver a poner para la validacion 
+//      pendiente volver a poner para la validacion 
 router.get('/consultUser', cosultUser)
-router.get('/UserById', userById)
+router.get('/UserById/:id', userById)
 router.post('/createUser', createUser)
 router.put('/updateUser',updateUser)
 router.delete('/deleteUser/:id', deleteUser)
